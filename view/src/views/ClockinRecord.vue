@@ -9,15 +9,22 @@
     <van-list
       v-model="loading"
       :finished="finished"
-      :finished-text="list.length == 0 ? '还没有数据哦，赶紧开始运动吧' : '没有更多了'"
+      :finished-text="
+        list.length == 0 ? '还没有数据哦，赶紧开始运动吧' : '没有更多了'
+      "
       @load="onLoad"
     >
       <van-cell
         v-for="item in list"
         :key="item.clockinTime"
-        :title="`运动时间 ${item.movementTime} 分钟`"
         :value="item.clockinTime"
-      />
+      >
+        <template #title>
+          <span class="custom-title">
+            运动时间 <span style="font-weight: 600; color: #2979ff">{{item.movementTime}}</span> 分钟
+          </span>
+        </template></van-cell
+      >
     </van-list>
   </div>
 </template>

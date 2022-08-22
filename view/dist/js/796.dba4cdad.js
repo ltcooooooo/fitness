@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkfitness"]=self["webpackChunkfitness"]||[]).push([[796],{7796:function(e,n,t){t.r(n),t.d(n,{default:function(){return c}});var s=function(){var e=this,n=e._self._c;return n("div",{attrs:{id:"home"}},[e._v("显示所有人运动数据")])},u=[],r={},f=r,i=t(3736),l=(0,i.Z)(f,s,u,!1,null,"7352e30e",null),c=l.exports}}]);
+//# sourceMappingURL=796.dba4cdad.js.map

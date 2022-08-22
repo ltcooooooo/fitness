@@ -9,11 +9,9 @@
       <div v-if="todayClock.isTrue">
         今日运动时间：
         <span style="font-weight: 600; color: #2979ff">{{
-          `${todayClock.movementTime} ${
-            todayClock.movementTime == "0" ? "" : "分钟"
-          }`
-        }}</span>
-        <!-- 运动时间： {{ todayClock.movementTime }} 分钟 -->
+          `${todayClock.movementTime} `
+        }}</span
+        >{{ todayClock.movementTime == "0" ? "" : "分钟" }}
       </div>
     </div>
     <div></div>
@@ -21,7 +19,7 @@
       class="clockIn"
       type="info"
       size="large"
-      :text="todayClock.isTrue?'更新打卡':'打 卡'"
+      :text="todayClock.isTrue ? '更新打卡' : '打 卡'"
       block
       round
       @click="startClockIn"

@@ -6,7 +6,7 @@
         <div>
           体重：<span style="font-weight: 600; color: #ff1744">{{
             user.weight
-          }}</span>
+          }}</span> 斤
         </div>
         <div>
           今日运动时间：<span style="font-weight: 600; color: #2979ff">{{

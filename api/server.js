@@ -7,14 +7,12 @@ const router = require("./router/router")
 app.use(cors())
 
 const secretKey = "梁天赐666"
-// app.use("/", express.static("../webView/"))
+app.use("/", express.static("../view/dist/"))
 app.use(expressJWT.expressjwt({ secret: secretKey, algorithms: ["HS256"] }).unless({ path: [/^\/api\//] }))
 app.use(router)
 
-// console.log(getDate())
 const port = 80
 app.use((err, req, res, next) => {
-	// console.log("Error中间件：", err)
 	console.log(err)
 	if (err.name == "UnauthorizedError") {
 		return res.send({
