@@ -7,12 +7,14 @@ const os = require("os")
 //获取用户打卡数据 
 function getUserClickinData(id) {
     const filePath = path.join(__dirname, "../data/userData/", id + ".json")
+    //如果没有该用户的表，先创建
     if (!fs.existsSync(filePath)) fs.writeFileSync(path.join(__dirname, `../data/userData/${id}.json`), `{"clockin":[]}`)
     return JSON.parse(fs.readFileSync(path.join(__dirname, `../data/userData/${id}.json`), { encoding: "utf8" })).clockin
 }
 //写入打卡数据
 function writeClockin(data) {
     const userClickinData = getUserClickinData(data.id)
+    //如果用户打卡表里面有数据，判断有没有今天的打卡数据，有的话先删除
     if (userClickinData.length !== 0) { if (isRemoveClickin(data.id)) userClickinData.pop() }
     const addNewClockId = userClickinData.length == 0 ? 1 : Number(userClickinData[userClickinData.length - 1].clockId) + 1
     const addNewClickData = { clockId: addNewClockId, clockinTime: getDate("time"), movementTime: data.movementTime }
@@ -21,7 +23,6 @@ function writeClockin(data) {
     fs.writeFileSync(path.join(__dirname, `../data/userData/${data.id}.json`), jsonstr)
     return addNewClickData
 }
-
 //写入之前判断今天有没有打卡，打过卡，删除今天打卡记录
 function isRemoveClickin(id) {
     const userClickinData = getUserClickinData(id)
@@ -29,7 +30,6 @@ function isRemoveClickin(id) {
     const todyDate = getDate()
     return lastClockinDate == todyDate ? true : false
 }
-
 //获取最近一次打卡记录
 function getUserLastClockin(id) {
     if (getUserClickinData(id).length == 0) {
@@ -38,8 +38,6 @@ function getUserLastClockin(id) {
         return getUserClickinData(id)[getUserClickinData(id).length - 1]
     }
 }
-
-
 //获取用户表
 function getUser() {
     return JSON.parse(fs.readFileSync(path.join(__dirname, "../data/user.json"), { encoding: "utf8" })).user
@@ -49,13 +47,11 @@ function getUserInfo(id) {
     const user = getUser()
     return user.find(item => item.id == id)
 }
-
 //检测用户是否存在
 function userIsExist(name) {
     const user = getUser()
     return user.find(item => item.name == name)
 }
-
 //新建用户的id
 function addNewUserId() {
     const user = getUser()
@@ -70,7 +66,6 @@ function writeUser(data) {
     const jsonstr = `{"user":${JSON.stringify(data)}}`
     fs.writeFileSync(path.join(__dirname, "../data/user.json"), jsonstr)
 }
-
 //获取日期时间
 function getDate(getTime) {
     const time = new Date().toTimeString().substr(0, 8)

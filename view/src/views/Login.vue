@@ -1,13 +1,19 @@
 <template>
   <div id="login">
     <div class="content">
-      <input type="text" placeholder="请输入你的名字" v-model="username" />
+      <input
+        type="text"
+        placeholder="请输入你的名字"
+        v-model="username"
+        @input="username = username.replace(/[ ]/g, '')"
+      />
       <input
         class="weight"
-        type="number"
+        type="text"
         :placeholder="weightShow ? '请输入你的体重' : ''"
         v-model="weight"
         :style="weightStyle"
+        @input="weightInput"
       />
       <van-button type="info" style="border-radius: 2vw" @click="loginBtn"
         >登录</van-button
@@ -29,6 +35,12 @@ export default {
     };
   },
   methods: {
+    weightInput() {
+      if (this.weight.length >= 3) return this.weight = this.weight.slice(0,3)
+      this.weight = this.weight.replace(/[ ]/g, "");
+      this.weight = this.weight.replace(/^0/, "");
+      this.weight = this.weight.replace(/\D/, "");
+    },
     loginBtn() {
       //为输入用户名弹出提示
       if (!this.username)
@@ -66,7 +78,13 @@ export default {
         });
       }
     },
-  }
+  },
+  watch: {
+    // username(newValue, oldValue) {
+    //   const str = newValue.replace(/\0/, "");
+    //   console.log(str)
+    // },
+  },
 };
 </script>
 
@@ -81,6 +99,7 @@ export default {
     display: flex;
     flex-direction: column;
     input {
+      margin: 0 auto;
       width: 50vw;
       height: 10vw;
       text-align: center;
@@ -89,6 +108,7 @@ export default {
       border: 0.2564vw solid #ccc;
       margin-bottom: 2.1282vw;
       padding: 0;
+      transition: 0.5s;
     }
     .weight {
       transition: 0.5s;
